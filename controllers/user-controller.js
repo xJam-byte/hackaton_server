@@ -46,6 +46,28 @@ class UserController {
     }
   }
 
+  async gainPoints(req, res, next) {
+    try {
+      const { newPoints, email } = req.body;
+      const data = await userService.addPoints(newPoints, email);
+
+      return res.json(data);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async substractPoints(req, res, next) {
+    try {
+      const { subPoints, email } = req.body;
+      const data = await userService.substractPoints(subPoints, email);
+
+      return res.json(data);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;

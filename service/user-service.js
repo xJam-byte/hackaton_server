@@ -81,6 +81,25 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
+  async addPoints(newpoints, email) {
+    const user = await UserModel.updateOne(
+      { email: email },
+      { points: newpoints }
+    );
+    const candidate = await userModel.findOne({ email });
+    return candidate;
+  }
+
+  async substractPoints(subpoints, email) {
+    const userbefore = await UserModel.findOne({ email: email });
+    const user = await UserModel.updateOne(
+      { email: email },
+      { points: userbefore.points - subpoints }
+    );
+    const candidate = await userModel.findOne({ email });
+    return candidate;
+  }
+
   async getAllUsers() {
     const users = await UserModel.find();
     return users;

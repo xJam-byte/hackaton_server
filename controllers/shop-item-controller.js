@@ -4,11 +4,28 @@ const ApiErrors = require("../exceptions/api-error");
 class ShopItemController {
   async addItem(req, res, next) {
     try {
-      const { name, image, description, price, type } = req.body;
+      const { name, image, description, price, type, count } = req.body;
 
-      const itemData = shopItemService.addItem(name, image, description, price);
+      const itemData = shopItemService.addItem(
+        name,
+        image,
+        description,
+        price,
+        type,
+        count
+      );
 
       return res.json(itemData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async removeItem(req, res, next) {
+    try {
+      const { name, count } = req.body;
+      const items = await shopItemService.removeItem(name, count);
+      return res.json(items);
     } catch (e) {
       next(e);
     }
@@ -17,7 +34,6 @@ class ShopItemController {
   async getItems(req, res, next) {
     try {
       const items = await shopItemService.getAllItems();
-      console.log("this is item controller ");
       return res.json(items);
     } catch (e) {
       next(e);

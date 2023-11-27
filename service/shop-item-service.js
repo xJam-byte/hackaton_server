@@ -7,15 +7,29 @@ const ItemModel = require("../models/shop-item-model");
 // const ApiError = require("../exceptions/api-error");
 
 class ShopItemService {
-  async addItem(name, image, description, price) {
+  async addItem(name, image, description, price, type, count) {
     const item = await ItemModel.create({
       name: name,
       image: image,
       description: description,
       price: price,
+      type: type,
+      count: count,
     });
     return item;
   }
+
+  async removeItem(name, newcount) {
+    const beforeItem = await ItemModel.findOne({ name });
+
+    const updateItem = await ItemModel.updateOne(
+      { name },
+      { count: beforeItem.count - newcount }
+    );
+    const candidate = await ItemModel.findOne({ name });
+    return candidate;
+  }
+
   async getAllItems() {
     const items = await ItemModel.find();
     console.log(items);
