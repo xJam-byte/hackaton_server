@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   points: { type: Number },
   isAddicted: { type: Boolean, require: true },
   role: { type: String, require: true },
+  subscribtion: { type: String, require: true },
   IsActivated: { type: Boolean, default: false },
   activationLink: { type: String },
 });

@@ -34,6 +34,18 @@ class UserController {
       next(e);
     }
   }
+
+  async subscribe(req, res, next) {
+    try {
+      const { typeOfSubscribtion, email } = req.body;
+      const data = await userService.subscribe(typeOfSubscribtion, email);
+
+      return res.json(data);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;

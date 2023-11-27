@@ -18,5 +18,9 @@ router.get("/refresh", userController.refresh);
 router.get("/users", authMiddleware, userController.getUsers);
 router.get("/shopItems", shopItemController.getItems);
 router.post("/addItems", shopItemController.addItem);
+router.post("/subscribe", userController.subscribe);
+router.get("/seminars");
+router.get("/contactUs");
+router.get("/material");
 
 module.exports = router;
