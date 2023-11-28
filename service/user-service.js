@@ -1,11 +1,11 @@
 const UserModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
-const mailService = require("../service/mail-sevice");
 const tokenService = require("./token-service");
 const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
 const userModel = require("../models/user-model");
+const shopItemService = require("./shop-item-service");
 
 class UserService {
   async registration(
@@ -47,6 +47,43 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  // async addPoints(newpoints, email) {
+  //   const user = await UserModel.updateOne(
+  //     { email: email },
+  //     { points: newpoints }
+  //   );
+  //   const candidate = await userModel.findOne({ email });
+  //   return candidate;
+  // }
+
+  // async removeItem(name, newcount) {
+  //   const beforeItem = await ItemModel.findOne({ name });
+
+  //   const updateItem = await ItemModel.updateOne(
+  //     { name },
+  //     { count: beforeItem.count - newcount }
+  //   );
+  //   const candidate = await ItemModel.findOne({ name });
+  //   return candidate;
+  // }
+
+  async buyItem({ email, itemName, itemCost, icount = 1 }) {
+    const data = await shopItemService.removeItem(itemName, icount);
+    const beforeUser = await UserModel.findOne({ email });
+    const newpoints = beforeUser.points - itemCost;
+    console.log(itemCost);
+    console.log(newpoints);
+    if (beforeUser.points < itemCost) {
+      return "недостаточно средств!";
+    } else {
+      const user = await UserModel.updateOne({
+        email: email,
+        points: newpoints,
+      });
+      return "Товар был куплен успешно";
+    }
   }
 
   async login(email, password) {

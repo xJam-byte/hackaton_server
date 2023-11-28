@@ -40,6 +40,22 @@ class UserController {
       next(e);
     }
   }
+
+  async buyItem(req, res, next) {
+    try {
+      const { email, itemName, itemCost, buycount } = req.body;
+      const items = await userService.buyItem({
+        email,
+        itemName,
+        itemCost,
+        buycount,
+      });
+      return res.json(items);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async login(req, res, next) {
     try {
       const { email, password } = req.body;

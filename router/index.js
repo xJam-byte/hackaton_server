@@ -26,6 +26,7 @@ router.post("/substractPoints", userController.substractPoints);
 router.post("/removeItem", shopItemController.removeItem);
 router.post("/sendDaily", mailController.sendEmail);
 router.post("/sendToAi", openaiController.sendRequest);
+router.post("/buyItem", userController.buyItem);
 router.get("/seminars");
 router.get("/contactUs");
 router.get("/material");
