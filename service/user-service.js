@@ -69,13 +69,13 @@ class UserService {
   //   return candidate;
   // }
 
-  async buyItem({ email, itemName, itemCost, icount = 1 }) {
-    const data = await shopItemService.removeItem(itemName, icount);
+  async buyItem(email, itemName, itemCost, icount = 1) {
     const beforeUser = await UserModel.findOne({ email });
-    const newpoints = beforeUser.points - itemCost;
-    console.log(itemCost);
-    console.log(newpoints);
     if (beforeUser.points < itemCost) {
+      const data = await shopItemService.removeItem(itemName, icount);
+      const newpoints = beforeUser.points - itemCost;
+      console.log(itemCost);
+      console.log(newpoints);
       return "недостаточно средств!";
     } else {
       const user = await UserModel.updateOne({

@@ -44,12 +44,12 @@ class UserController {
   async buyItem(req, res, next) {
     try {
       const { email, itemName, itemCost, buycount } = req.body;
-      const items = await userService.buyItem({
+      const items = await userService.buyItem(
         email,
         itemName,
         itemCost,
-        buycount,
-      });
+        buycount
+      );
       return res.json(items);
     } catch (e) {
       next(e);

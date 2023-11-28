@@ -2,7 +2,7 @@ const openai = require("openai");
 const apiModel = require("../models/openai-model");
 const candidate = apiModel.findOne({ name: "openai" });
 const openai2 = new openai({
-  apiKey: "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",
+  apiKey: "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",
 });
 class OpenAiService {
   async sendRequest(role, content) {
