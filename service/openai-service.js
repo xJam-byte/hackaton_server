@@ -2,7 +2,7 @@ const openai = require("openai");
 const apiModel = require("../models/openai-model");
 const candidate = apiModel.findOne({ name: "openai" });
 const openai2 = new openai({
-  apiKey: "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",
+  apiKey: "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",
 });
 class OpenAiService {
   async sendRequest(role, content) {
@@ -14,15 +14,12 @@ class OpenAiService {
         },
         {
           role: role,
-          content: content,
+          content: content + "(максимум 50 слов)",
         },
       ],
       model: "gpt-3.5-turbo",
     });
-    // console.log(completion);
-    // console.log(candidate.name);
     return completion.choices[0].message.content;
-    // return candidate.apiKey;
   }
 }
 module.exports = new OpenAiService();
