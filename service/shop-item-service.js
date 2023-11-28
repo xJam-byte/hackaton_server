@@ -16,7 +16,9 @@ class ShopItemService {
       type: type,
       count: count,
     });
-    return item;
+
+    const items = await ItemModel.find();
+    return items;
   }
 
   async removeItem(name, newcount) {
@@ -32,7 +34,6 @@ class ShopItemService {
 
   async getAllItems() {
     const items = await ItemModel.find();
-    console.log(items);
     return items;
   }
 }

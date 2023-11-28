@@ -20,6 +20,7 @@
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.2",
     "nodemailer": "^6.9.6",
+    "openai": "^4.20.1",
     "sqlite3": "^5.1.6",
     "uuid": "^9.0.1"
   },

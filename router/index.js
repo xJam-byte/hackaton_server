@@ -1,6 +1,7 @@
 const Router = require("express").Router;
 const userController = require("../controllers/user-controller");
 const mailController = require("../controllers/mail-controller");
+const openaiController = require("../controllers/openai-controller");
 const router = new Router();
 const shopItemController = require("../controllers/shop-item-controller");
 const { body } = require("express-validator");
@@ -24,6 +25,7 @@ router.post("/addPoints", userController.gainPoints);
 router.post("/substractPoints", userController.substractPoints);
 router.post("/removeItem", shopItemController.removeItem);
 router.post("/sendDaily", mailController.sendEmail);
+router.post("/sendToAi", openaiController.sendRequest);
 router.get("/seminars");
 router.get("/contactUs");
 router.get("/material");
