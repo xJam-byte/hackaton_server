@@ -1,6 +1,17 @@
 const userService = require("../service/user-service");
 const { validationResult } = require("express-validator");
 const ApiErrors = require("../exceptions/api-error");
+
+// name: { type: String, require: true },
+// surname: { type: String, require: true },
+// email: { type: String, unique: true, require: true },
+// password: { type: String, require: true },
+// points: { type: Number },
+// isAddicted: { type: Boolean, require: true },
+// role: { type: String, require: true },
+// subscribtion: { type: String, require: true },
+// IsActivated: { type: Boolean, default: false },
+// activationLink: { type: String },
 class UserController {
   async registration(req, res, next) {
     try {
@@ -10,8 +21,26 @@ class UserController {
           ApiErrors.BadRequest("Ошибка при валидации", errors.array())
         );
       }
-      const { name, surname, email, password } = req.body;
-      const userData = await userService.registration(email, password);
+      const {
+        name,
+        surname,
+        email,
+        password,
+        points,
+        isAddicted,
+        role,
+        subscribtion,
+      } = req.body;
+      const userData = await userService.registration(
+        name,
+        surname,
+        email,
+        password,
+        points,
+        isAddicted,
+        role,
+        subscribtion
+      );
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
